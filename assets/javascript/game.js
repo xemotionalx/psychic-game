@@ -36,7 +36,6 @@ document.getElementById("userinput").innerHTML = userGuess;
 // if user guess === computer letter then add 1 to wins
 if (userGuess === randomLetter) {
     wins++
-    document.getElementById("win").innerHTML = wins;
 } 
 
 // if user guess is wrong, add 1 to losses
@@ -68,3 +67,8 @@ console.log('keep playing: ' + keepPlaying);
 }
 
 playGame();
+
+if (playGame) {
+    document.getElementById('win').textContent = wins;
+    document.getElementById('loss').textContent = losses;
+}

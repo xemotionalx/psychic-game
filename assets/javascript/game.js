@@ -1,15 +1,22 @@
 //initialize game
 var wins = 0;
 var losses = 0;
-guessesLeft = 9;
+var userGuess, guess, guessesLeft
+
+init();
 
 // pressing a key starts the game
 document.onkeyup = function playGame() {
 
-    //the pressed key = guess: is stored in variable & shows up on screen
-    var userGuess = event.key;
+    //the pressed key = guess: is stored in variable, pushed into array 
+    guess = event.key;
+    userGuess.push(guess);
     
-    document.getElementById("userinput").innerHTML = userGuess;
+    //the array is published to page
+    for (var i = 1; i < 9; i++) {
+
+        document.getElementById("userinput").innerHTML = userGuess;
+    }
     
     //computer generates random # 0-25; number gets converted to string a-z
     var randomNumber = Math.floor(Math.random() * 25);
@@ -19,14 +26,14 @@ document.onkeyup = function playGame() {
    //if guesses > 0, & the user gets it right the guesses reset to 9 and wins increase
    //if guesses > 0, & the user gets it wrong the # of guesses remaining go down 1
    //if guesses go down to 0, losses go up 1 and guesses reset to 9
-    if (userGuess === randomLetter && guessesLeft > 0) {
+    if (guess === randomLetter && guessesLeft > 1) {
         wins++;
-        guessesLeft = 9;
-    } else if  (userGuess !== randomLetter && guessesLeft > 0) {
+        init();
+    } else if  (userGuess !== randomLetter && guessesLeft > 1) {
         guessesLeft--;
-    } else if (guessesLeft === 0) {
+    } else if (guessesLeft === 1) {
         losses++;
-        guessesLeft = 9;
+        init();
     } 
 
     document.getElementById('win').textContent = wins;
@@ -39,13 +46,14 @@ document.onkeyup = function playGame() {
     //wins and losses do NOT reset
 
 
-    console.log('random number ' + randomNumber);
-    console.log('alphabet: ' + alphabet);
-    console.log('random letter: ' + randomLetter);
-    console.log('the user guesses: ' + userGuess);
-    console.log('wins: ' + wins);
-    console.log('losses: ' + losses);
-    console.log('guesses left: ' + guessesLeft);
+    console.log('computers random letter: ' + randomLetter);
+    console.log('the user guesses: ' + guess);
     
 }
+
+function init() {
+    guessesLeft = 9;
+    userGuess = [];
+    guess;
+};
 

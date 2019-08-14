@@ -1,6 +1,7 @@
 //initialize game
 var wins = 0;
 var losses = 0;
+guessesLeft = 9;
 
 // pressing a key starts the game
 document.onkeyup = function playGame() {
@@ -15,31 +16,24 @@ document.onkeyup = function playGame() {
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var randomLetter = alphabet.charAt(randomNumber);
 
-    // user types a letter and it creates text on page
-    //var userInput = prompt('guess a letter');
-    // this letter is saved as a variable and saved as lower case
-    //gets pushed into an array
-    // the letters are pushed to dom
-
-    // there is a for loop that loops through 9 times OR until correct guess
-    // each time it loops through, the number of guesses left decreases
-
-    // if user guess === computer letter then add 1 to wins
-    if (userGuess === randomLetter) {
-        wins++
-    }
-
-    // if user guess is wrong, add 1 to losses
-    else {
-        losses++
-    }
+   //if guesses > 0, & the user gets it right the guesses reset to 9 and wins increase
+   //if guesses > 0, & the user gets it wrong the # of guesses remaining go down 1
+   //if guesses go down to 0, losses go up 1 and guesses reset to 9
+    if (userGuess === randomLetter && guessesLeft > 0) {
+        wins++;
+        guessesLeft = 9;
+    } else if  (userGuess !== randomLetter && guessesLeft > 0) {
+        guessesLeft--;
+    } else if (guessesLeft === 0) {
+        losses++;
+        guessesLeft = 9;
+    } 
 
     document.getElementById('win').textContent = wins;
     document.getElementById('loss').textContent = losses;
-    // the loop ends and the game resets 
-
-    // for test run - end loop and ask if you want to play again
-    //var keepPlaying = confirm('want to keep playing?');
+    document.getElementById('guesses-left').textContent = guessesLeft;
+    
+     
     //guesses reset
     // guesses left resets
     //wins and losses do NOT reset
@@ -51,7 +45,7 @@ document.onkeyup = function playGame() {
     console.log('the user guesses: ' + userGuess);
     console.log('wins: ' + wins);
     console.log('losses: ' + losses);
-    //console.log('guesses left: ' + guessesLeft);
+    console.log('guesses left: ' + guessesLeft);
     
 }
 
